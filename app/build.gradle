@@ -1,0 +1,68 @@
+apply plugin: 'com.android.application'
+//gradle-retrolambda配置
+apply plugin: 'me.tatarka.retrolambda'
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
+    defaultConfig {
+        applicationId "com.xingen.architecturecomponents"
+        minSdkVersion 15
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:recyclerview-v7:26.0.0-alpha1'
+    testCompile 'junit:junit:4.12'
+    /**************    Architecture components库  *************/
+    //Lifecycles库
+    compile 'android.arch.lifecycle:runtime:1.0.3'
+    annotationProcessor "android.arch.lifecycle:compiler:1.0.0"
+    //ViewModel和 LiveData库
+    compile 'android.arch.lifecycle:extensions:1.0.0'
+    //Room库
+    compile 'android.arch.persistence.room:runtime:1.0.0'
+    compile "android.arch.persistence.room:rxjava2:1.0.0"
+    annotationProcessor "android.arch.persistence.room:compiler:1.0.0"
+
+    /**************    RxJava库和RxAndroid库 *************/
+    compile 'io.reactivex.rxjava2:rxjava:2.1.1'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    /**************    Retrofit 和OkHttp 库  *************/
+    //异步加载图像
+    compile 'com.github.bumptech.glide:glide:3.8.0'
+    //网络请求操作
+    compile 'com.squareup.retrofit2:retrofit:2.3.0'
+    compile 'com.squareup.okhttp3:okhttp:3.8.0'
+    //解析数据，Gson方式json
+    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
+    //网络日志输出
+    compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+    //结合RxJava使用
+    compile 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
+
+}
